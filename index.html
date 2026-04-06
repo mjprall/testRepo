@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hawaii Vacation Idea Generator 🌺</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🌺 Hawaii Vacation Generator</h1>
+    <p>Tell us about your dream trip — we'll build your perfect island itinerary</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Input Card -->
+    <div class="card">
+      <h2>🗺️ Plan Your Trip</h2>
+
+      <div class="form-grid">
+
+        <!-- Vacation Type -->
+        <div class="form-group">
+          <label for="vacation-type">Vacation Type</label>
+          <select id="vacation-type">
+            <option value="" disabled selected>Select a vacation type…</option>
+            <option value="family">👨‍👩‍👧 Family</option>
+            <option value="couple">💑 Couple</option>
+            <option value="honeymoon">💍 Honeymoon</option>
+            <option value="solo">🧳 Solo Adventure</option>
+            <option value="friends">🎉 Friends Group</option>
+            <option value="work">💼 Work / Business</option>
+          </select>
+        </div>
+
+        <!-- Duration -->
+        <div class="form-group">
+          <label for="duration">Trip Duration</label>
+          <select id="duration">
+            <option value="" disabled selected>Select trip length…</option>
+            <option value="3">3 Days (Long Weekend)</option>
+            <option value="5">5 Days</option>
+            <option value="7">7 Days (One Week)</option>
+            <option value="10">10 Days</option>
+            <option value="14">14 Days (Two Weeks)</option>
+          </select>
+        </div>
+
+        <!-- Activities Multi-Select -->
+        <div class="form-group full-width">
+          <label>Activities <span style="font-weight:400; color:#94a3b8;">(select all that interest you)</span></label>
+          <div class="multi-select-container" id="activity-chips" role="group" aria-label="Select activities">
+            <!-- chips injected by app.js -->
+          </div>
+          <p class="hint">Click to select · Click again to deselect</p>
+        </div>
+
+      </div>
+
+      <div id="error-message" class="error-message" role="alert"></div>
+
+      <button id="generate-btn" class="btn-generate" type="button">
+        ✈️ Generate My Hawaii Itinerary
+      </button>
+    </div>
+
+    <!-- Itinerary Output Card -->
+    <div class="card" id="itinerary-section">
+      <div id="itinerary-content"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Made with Aloha 🤙 · Hawaii Vacation Generator</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
