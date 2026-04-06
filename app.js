@@ -24,7 +24,7 @@ const ACTIVITY_OPTIONS = {
     "Visit Lanikai Beach for crystal-clear turquoise water",
     "Watch the sunset at Hapuna Beach State Recreation Area",
     "Explore the black-sand beach at Punalu'u",
-    "Spend the afternoon at Ka'anapali Beach",
+    "Spend the day at Ka'anapali Beach",
     "Stroll along the resort-lined shores of Poipū Beach",
     "Explore the tide pools at Shark's Cove",
   ],
@@ -42,7 +42,7 @@ const ACTIVITY_OPTIONS = {
     "Discover vibrant coral at Molokini Crater",
     "Dive the underwater caves at Sharks Cove",
     "Snorkel at Hanauma Bay Nature Preserve",
-    "Night-dive with manta rays off Kona Coast",
+    "Dive with manta rays off Kona Coast",
     "Explore Anini Reef off Kaua'i's north shore",
     "Join a guided snorkel cruise along the Nā Pali Coast",
   ],
@@ -66,7 +66,7 @@ const ACTIVITY_OPTIONS = {
   ],
   luau: [
     "Attend the Old Lahaina Luau for authentic Hawaiian food & hula",
-    "Experience the Polynesian Cultural Center evening show",
+    "Experience a Polynesian Cultural Center show",
     "Enjoy the Te Au Moana Luau at the Maui Beach Hotel",
     "Hit the cocktail bars along Hotel Street in Honolulu",
     "Watch live Hawaiian music at Blue Note Hawaii",
@@ -101,7 +101,7 @@ const ACTIVITY_OPTIONS = {
     "Hike to Rainbow Falls near Hilo",
     "Discover the seven sacred pools at Ohe'o Gulch (Maui)",
     "Walk to Wailua Falls, Kaua'i's iconic double waterfall",
-    "Explore Manoa Falls after a morning rainforest walk",
+    "Explore Manoa Falls on a lush rainforest walk",
     "Drive the Road to Hana with stops at countless waterfalls",
   ],
   shopping: [
@@ -120,7 +120,7 @@ const ACTIVITY_OPTIONS = {
     "Experience Kā'anapali's award-winning Royal Golf Course",
   ],
   yoga: [
-    "Morning yoga and meditation at a beachfront studio",
+    "Yoga and meditation at a beachfront studio",
     "Rejuvenate with a lomi lomi massage at a spa resort",
     "Try a sunrise yoga session on the beach",
     "Book a couples' hot stone massage",
@@ -130,7 +130,7 @@ const ACTIVITY_OPTIONS = {
   ],
   stargazing: [
     "Join a summit stargazing tour at Mauna Kea Observatory",
-    "Watch for shooting stars from a dark beach at night",
+    "Watch for shooting stars from a dark-sky beach",
     "Attend a telescope viewing event at Haleakalā summit",
     "Take an astronomy tour led by a professional astronomer",
   ],
