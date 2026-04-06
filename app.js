@@ -24,7 +24,7 @@ const ACTIVITY_OPTIONS = {
     "Visit Lanikai Beach for crystal-clear turquoise water",
     "Watch the sunset at Hapuna Beach State Recreation Area",
     "Explore the black-sand beach at Punalu'u",
-    "Spend the day at Ka'anapali Beach",
+    "Spend the afternoon at Ka'anapali Beach",
     "Stroll along the resort-lined shores of Poipū Beach",
     "Explore the tide pools at Shark's Cove",
   ],
@@ -42,7 +42,7 @@ const ACTIVITY_OPTIONS = {
     "Discover vibrant coral at Molokini Crater",
     "Dive the underwater caves at Sharks Cove",
     "Snorkel at Hanauma Bay Nature Preserve",
-    "Dive with manta rays off Kona Coast",
+    "Night-dive with manta rays off Kona Coast",
     "Explore Anini Reef off Kaua'i's north shore",
     "Join a guided snorkel cruise along the Nā Pali Coast",
   ],
@@ -66,7 +66,7 @@ const ACTIVITY_OPTIONS = {
   ],
   luau: [
     "Attend the Old Lahaina Luau for authentic Hawaiian food & hula",
-    "Experience a Polynesian Cultural Center show",
+    "Experience the Polynesian Cultural Center evening show",
     "Enjoy the Te Au Moana Luau at the Maui Beach Hotel",
     "Hit the cocktail bars along Hotel Street in Honolulu",
     "Watch live Hawaiian music at Blue Note Hawaii",
@@ -101,7 +101,7 @@ const ACTIVITY_OPTIONS = {
     "Hike to Rainbow Falls near Hilo",
     "Discover the seven sacred pools at Ohe'o Gulch (Maui)",
     "Walk to Wailua Falls, Kaua'i's iconic double waterfall",
-    "Explore Manoa Falls on a lush rainforest walk",
+    "Explore Manoa Falls after a morning rainforest walk",
     "Drive the Road to Hana with stops at countless waterfalls",
   ],
   shopping: [
@@ -120,7 +120,7 @@ const ACTIVITY_OPTIONS = {
     "Experience Kā'anapali's award-winning Royal Golf Course",
   ],
   yoga: [
-    "Yoga and meditation at a beachfront studio",
+    "Morning yoga and meditation at a beachfront studio",
     "Rejuvenate with a lomi lomi massage at a spa resort",
     "Try a sunrise yoga session on the beach",
     "Book a couples' hot stone massage",
@@ -130,7 +130,7 @@ const ACTIVITY_OPTIONS = {
   ],
   stargazing: [
     "Join a summit stargazing tour at Mauna Kea Observatory",
-    "Watch for shooting stars from a dark-sky beach",
+    "Watch for shooting stars from a dark beach at night",
     "Attend a telescope viewing event at Haleakalā summit",
     "Take an astronomy tour led by a professional astronomer",
   ],
@@ -216,11 +216,54 @@ const TIME_SLOTS = ["Morning", "Late Morning", "Afternoon", "Evening"];
 const ACTIVITIES_PER_DAY = 3;
 const TIPS_TO_SHOW = 3;
 
+// Activities that must be assigned only to specific time slots
+const ACTIVITY_SLOT_CONSTRAINTS = {
+  "Morning yoga and meditation at a beachfront studio":  ["Morning", "Late Morning"],
+  "Try a sunrise yoga session on the beach":             ["Morning"],
+  "Summit Mauna Kea at sunrise":                         ["Morning"],
+  "Explore Manoa Falls after a morning rainforest walk": ["Morning", "Late Morning"],
+  "Spend the afternoon at Ka'anapali Beach":             ["Afternoon"],
+  "Watch the sunset at Hapuna Beach State Recreation Area": ["Evening"],
+  "Join a sunset dinner cruise with live entertainment": ["Evening"],
+  "Join a sunset meditation on the beach":               ["Evening"],
+  "Experience the Polynesian Cultural Center evening show": ["Evening"],
+  "Night-dive with manta rays off Kona Coast":           ["Evening"],
+  "Watch for shooting stars from a dark beach at night": ["Evening"],
+};
+
 function buildDay(dayNum, activityPool, vacationType) {
   const dayActivities = pick(activityPool, ACTIVITIES_PER_DAY);
-  const slots = pick(TIME_SLOTS, dayActivities.length);
-  slots.sort((a, b) => TIME_SLOTS.indexOf(a) - TIME_SLOTS.indexOf(b));
-  return { dayNum, activities: dayActivities.map((act, i) => ({ time: slots[i], desc: act })) };
+
+  const assignedSlots = new Map();
+  const usedSlots = new Set();
+
+  // First pass: assign required slots to constrained activities
+  for (const act of dayActivities) {
+    const allowed = ACTIVITY_SLOT_CONSTRAINTS[act];
+    if (allowed) {
+      const slot = allowed.find(s => !usedSlots.has(s));
+      if (slot) {
+        assignedSlots.set(act, slot);
+        usedSlots.add(slot);
+      }
+    }
+  }
+
+  // Second pass: assign remaining slots to unconstrained activities
+  const remainingSlots = shuffle(TIME_SLOTS.filter(s => !usedSlots.has(s)));
+  let idx = 0;
+  for (const act of dayActivities) {
+    if (!assignedSlots.has(act)) {
+      assignedSlots.set(act, remainingSlots[idx++]);
+    }
+  }
+
+  // Sort by chronological slot order and return
+  const activities = dayActivities
+    .map(act => ({ time: assignedSlots.get(act), desc: act }))
+    .sort((a, b) => TIME_SLOTS.indexOf(a.time) - TIME_SLOTS.indexOf(b.time));
+
+  return { dayNum, activities };
 }
 
 // ── Itinerary Generation ────────────────────────────────────────────────────────
